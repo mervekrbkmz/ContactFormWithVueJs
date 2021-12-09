@@ -1,0 +1,343 @@
+﻿
+
+@{
+    ViewData["Title"] = "FormContact";
+
+
+
+    ViewData["Title"] = "İletişim Formu ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string lang = Context.Request.Cookies["lang"];
+    ViewData["message"] = ViewData.Keys;
+
+}
+
+@section Head{
+    @*<link rel="stylesheet" href="~/theme/vendor/nivo-slider/default/default.css" media="screen">*@
+    @*<link href="~/victory/vendors/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    *@
+    <link href="~/css/sweetalert2-dark.css" rel="stylesheet" />
+    <script src="~/js/sweetalert2.min.js"></script>
+    @*<script src="~/victory/vendors/sweetalert2/sweetalert2.min.js"></script>*@
+}
+
+
+@if (lang == "eng")
+{
+
+    <section class="page-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">Home</a></li>
+                        <li class="active">Housing Application Form</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-md-8">
+
+
+
+                <h2 class="short"><strong>Laying Area</strong> Application Form</h2>
+                @if (Model.Message != null && Model.Message != "" && lang != "eng")
+                {
+                    <div class="alert alert-success" role="alert">
+                        @Model.Message
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>Laying Area Type</label>
+                            <select class="form-control" v-model="meslekSecim" v-on:change="bolgeChange()">
+                                <option value="0" selected>Area Select</option>
+                                <option v-for="item in bolgelerEng"> {{item}}</option>
+                            </select>
+                            <div class="error activE">{{ errors.bolgeSecim }}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div v-if="bolgeSecim=='Other'">
+                                <label>Other Area Select</label>
+                                <input class="form-control" type="text" v-model="digerBolge" v-text="bolgeChange()" required>
+                                <div class="error activE">{{ errors.digerBolge }}</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Name Surname *</label>
+                        <input class="form-control" type="text" name="adSoyad" id="adSoyad" v-model="serimForm.adSoyad">
+                        <div class="error activE">{{ errors.adSoyad }}</div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-6">
+                        <label>Phone Number *</label>
+                        <input class="form-control" type="text" v-model="serimForm.tel" id="phone" required>
+                        <div class="error activE">{{ errors.tel }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Email *</label>
+                        <input class="form-control" type="text" v-model="serimForm.ePosta" id="email" required>
+                        <div class="error activE">{{ errors.ePosta }}</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Address *</label>
+                        <textarea class="form-control" type="text" v-model="serimForm.adres" required></textarea>
+                        <div class="error activE">{{ errors.adres }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>DOğum Tarihi *</label>
+                        <input class="datepicker minimumSize"error activE">{{ errors.adres }}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Anything you want to add about your quote request *</label>
+                        <textarea class="form-control" type="text" v-model="serimForm.aciklama" required></textarea>
+                        <div class="error activE">{{ errors.aciklama }}</div>
+                    </div>
+                </div>
+         </div>
+            <div class="row">
+                <div class="col-md-12" style="text-align: right;">
+                    <input type="submit" id="submit" value="Send Message" v-on:click="sendMailFn()" class="btn btn-primary btn-lg" data-loading-text="Loading...">
+
+                </div>
+            </div>
+        </div>
+  
+}
+else
+{
+
+    <section class="page-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="breadcrumb">
+                        <li><a href="~/">Anasayfa</a></li>
+                        <li class="active">İletişim Başvuru Ekranı</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="alert alert-success hidden" id="contactSuccess">
+                    <strong>Success!</strong>Mesajınınz başarılı bir şekilde gönderildi.
+                </div>
+
+                <div class="alert alert-danger hidden" id="contactError">
+                    <strong>Error!</strong> Mesajınızı gönderirken bir hata oluştu.
+                </div>
+
+                <h2 class="short"><strong>İletişim</strong> Başvuru Formu</h2>
+                @if (Model.Message != null && Model.Message != "" && lang != "eng")
+                {
+                    <div class="alert alert-success" role="alert">
+                        @Model.Message
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>Meslek Seçimi</label>
+                            <select class="form-control" v-model="bolgeSecim" v-on:change="bolgeChange()">
+                                <option value="0" selected>Meslek Seçiniz</option>
+                                <option v-for="item in bolgeler"> {{item}}</option>
+                            </select>
+                            <div class="error activE">{{ errors.bolgeSecim }}</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div v-if="bolgeSecim=='Diğer'">
+                                <label>Diğer(Varsa) Belirtiniz</label>
+                                <input class="form-control" type="text" v-model="digerBolge" v-text="bolgeChange()" required>
+                                <div class="error activE">{{ errors.digerBolge }}</div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Adınız ve Soyadınız *</label>
+                                <input class="form-control" type="text" name="adSoyad" id="adSoyad" v-model="serimForm.adSoyad" placeholder="@(lang == "eng" ? "Firstname" : "Adınız") *">
+                                <div class="error activE">{{ errors.adSoyad }}</div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-md-6">
+                                <label>Telefon Numaranız *</label>
+                                <input class="form-control" type="text" v-model="serimForm.tel" id="phone" required>
+                                <div class="error activE">{{ errors.tel }}</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Email Adresiniz *</label>
+                                <input class="form-control" type="text" v-model="serimForm.ePosta" id="email" required>
+                                <div class="error activE">{{ errors.ePosta }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Doğum tarihi *</label>
+                            <input class="form-control" type="DATE" v-model="serimForm.ePosta" id="date" required>
+                            <div class="error activE">{{ errors.ePosta }}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Adres *</label>
+                            <textarea class="form-control" type="text" v-model="serimForm.adres" required></textarea>
+                            <div class="error activE">{{ errors.adres }}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label> Eklemek istedikleriniz *</label>
+                            <textarea class="form-control" type="text" v-model="serimForm.aciklama" required></textarea>
+                            <div class="error activE">{{ errors.aciklama }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="text-align: right;">
+                        <input type="submit" id="submit" value="Mesaj Gönder" v-on:click="sendMailFn()" class="btn btn-primary btn-lg" data-loading-text="Yükleniyor...">
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+
+    <script src="~/theme/js/views/view.home.js"></script>
+    <script src="~/js/vue.js" xmlns:v-on="http://www.w3.org/1999/xhtml"></script>
+    <script src="~/js/axios.min.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="~/theme/js/custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="~/theme/js/theme.init.js"></script>
+    <script src="~/victory/vendors/inputmask/jquery.inputmask.bundle.js"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        const validateAdSoyad = adSoyad => {
+            if (!adSoyad.length) {
+                return { valid: false, error: this.lang == 'eng' ? "This field is required" : "Bu alan zorunludur!" };
+            }
+            return { valid: true, error: null };
+        };
+
+        const validateTel = telNo => {
+            if (!telNo.length) {
+                return { valid: false, error: this.lang == 'eng' ? "This field is required" : "Bu alan zorunludur!" };
+            }
+            return { valid: true, error: null };
+        };
+
+        const validateAdres = adres => {
+            if (!adres.length) {
+                return { valid: false, error: this.lang == 'eng' ? "This field is required" : "Bu alan zorunludur!" };
+            }
+            return { valid: true, error: null };
+      
+        };
+
+
+        const validateEposta = ePosta => {
+            if (!ePosta.length) {
+                return { valid: false, error: this.lang == 'eng' ? "This field is required" : 'Bu alan zorunludur!' };
+            }
+            if (!ePosta.match(/^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/gi)) {
+                return { valid: false, error: this.lang == 'eng' ? "Please, enter a valid email." : "Lütfen geçerli eposta adresini giriniz" };
+            }
+            return { valid: true, error: null };
+        };
+
+
+        const validateAciklama = aciklama => {
+            if (!aciklama.length) {
+                return { valid: false, error: this.lang == 'eng' ? "Description field cannot be empty" : "Mesaj alanı boş olamaz!" };
+            }
+            return { valid: true, error: null };
+        };
+        const validateBolgeTuru = meslekSecimi => {
+            if (!meslekSecimi.length) {
+                return { valid: false, error: this.lang == 'eng' ? "Zone Type field cannot be empty" : "Meslek Seçimi alanı boş olamaz!" };
+            }
+            return { valid: true, error: null };
+        };
+
+        var vm = new Vue({
+            el: "app",
+            data: {
+                lang: 'tr',
+                meslekler: ["Memur", "Özel Sektör", "Serbest Çalışan", "Diğer"],
+                mesleklerEng: ["Officer", "Private Sector", "Freelancer", "Other"],
+
+                formContact: {
+                    meslekSecimi: "",
+                    adSoyad: "",
+                    telNo: "",
+                    ePosta: "",
+                    adres: "",
+                    dogumTarihi: "",
+                    aciklama: "",
+                    valid: true
+
+                },
+                errors: {},
+
+
+            },
+
+
+
+        });
+
+    })
+</script>
+
+
+
+}
+
