@@ -1,15 +1,12 @@
 ﻿
 
 @{
-    ViewData["Title"] = "FormContact";
-
-
 
     ViewData["Title"] = "İletişim Formu ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    string lang = Context.Request.Cookies["lang"];
-    ViewData["message"] = ViewData.Keys;
+    //string lang = Context.Request.Cookies["lang"];
+
 
 }
 
@@ -19,228 +16,96 @@
     *@
     <link href="~/css/sweetalert2-dark.css" rel="stylesheet" />
     <script src="~/js/sweetalert2.min.js"></script>
-    @*<script src="~/victory/vendors/sweetalert2/sweetalert2.min.js"></script>*@
+ 
+<style>
+    .error {
+        color: red;
+    }
+</style>
 }
 
+<section class="page-top">
+    <div class="container">
+        <div class="row">
 
-@if (lang == "eng")
-{
+        </div>
+    </div>
+</section>
 
-    <section class="page-top">
-        <div class="container">
+
+<div class="container" id="app">
+ 
+            <h2 class="short"><strong>İletişim</strong> Başvuru Formu</h2>
+
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="breadcrumb">
-                        <li><a href="~/">Home</a></li>
-                        <li class="active">Housing Application Form</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="container" id="app">
-        <div class="row">
-            <div class="col-md-8">
-
-
-
-                <h2 class="short"><strong>Laying Area</strong> Application Form</h2>
-                @if (Model.Message != null && Model.Message != "" && lang != "eng")
-                {
-                    <div class="alert alert-success" role="alert">
-                        @Model.Message
-                    </div>
-                }
-
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label>Laying Area Type</label>
-                            <select class="form-control" v-model="meslekSecim" v-on:change="bolgeChange()">
-                                <option value="0" selected>Area Select</option>
-                                <option v-for="item in bolgelerEng"> {{item}}</option>
-                            </select>
-                            <div class="error activE">{{ errors.bolgeSecim }}</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div v-if="bolgeSecim=='Other'">
-                                <label>Other Area Select</label>
-                                <input class="form-control" type="text" v-model="digerBolge" v-text="bolgeChange()" required>
-                                <div class="error activE">{{ errors.digerBolge }}</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <div class="col-md-6">
-                        <label>Name Surname *</label>
-                        <input class="form-control" type="text" name="adSoyad" id="adSoyad" v-model="serimForm.adSoyad">
-                        <div class="error activE">{{ errors.adSoyad }}</div>
-
-                    </div>
-                </div>
-                <div class="form-group">
-
-                    <div class="col-md-6">
-                        <label>Phone Number *</label>
-                        <input class="form-control" type="text" v-model="serimForm.tel" id="phone" required>
-                        <div class="error activE">{{ errors.tel }}</div>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Email *</label>
-                        <input class="form-control" type="text" v-model="serimForm.ePosta" id="email" required>
-                        <div class="error activE">{{ errors.ePosta }}</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>Address *</label>
-                        <textarea class="form-control" type="text" v-model="serimForm.adres" required></textarea>
-                        <div class="error activE">{{ errors.adres }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>DOğum Tarihi *</label>
-                        <input class="datepicker minimumSize"error activE">{{ errors.adres }}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>Anything you want to add about your quote request *</label>
-                        <textarea class="form-control" type="text" v-model="serimForm.aciklama" required></textarea>
-                        <div class="error activE">{{ errors.aciklama }}</div>
-                    </div>
-                </div>
-         </div>
-            <div class="row">
-                <div class="col-md-12" style="text-align: right;">
-                    <input type="submit" id="submit" value="Send Message" v-on:click="sendMailFn()" class="btn btn-primary btn-lg" data-loading-text="Loading...">
-
-                </div>
-            </div>
-        </div>
-  
-}
-else
-{
-
-    <section class="page-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="breadcrumb">
-                        <li><a href="~/">Anasayfa</a></li>
-                        <li class="active">İletişim Başvuru Ekranı</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="container" id="app">
-        <div class="row">
-            <div class="col-md-8">
-
-                <div class="alert alert-success hidden" id="contactSuccess">
-                    <strong>Success!</strong>Mesajınınz başarılı bir şekilde gönderildi.
-                </div>
-
-                <div class="alert alert-danger hidden" id="contactError">
-                    <strong>Error!</strong> Mesajınızı gönderirken bir hata oluştu.
-                </div>
-
-                <h2 class="short"><strong>İletişim</strong> Başvuru Formu</h2>
-                @if (Model.Message != null && Model.Message != "" && lang != "eng")
-                {
-                    <div class="alert alert-success" role="alert">
-                        @Model.Message
-                    </div>
-                }
-
-                <div class="row">
                     <div class="form-group">
                         <div class="col-md-6">
                             <label>Meslek Seçimi</label>
-                            <select class="form-control" v-model="bolgeSecim" v-on:change="bolgeChange()">
+                            <select class="form-control" v-model="meslekSecim" v-on:change="meslekChange()">
                                 <option value="0" selected>Meslek Seçiniz</option>
-                                <option v-for="item in bolgeler"> {{item}}</option>
+                                <option v-for="item in meslekler"> {{item}}</option>
                             </select>
-                            <div class="error activE">{{ errors.bolgeSecim }}</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div v-if="bolgeSecim=='Diğer'">
-                                <label>Diğer(Varsa) Belirtiniz</label>
-                                <input class="form-control" type="text" v-model="digerBolge" v-text="bolgeChange()" required>
-                                <div class="error activE">{{ errors.digerBolge }}</div>
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label>Adınız ve Soyadınız *</label>
-                                <input class="form-control" type="text" name="adSoyad" id="adSoyad" v-model="serimForm.adSoyad" placeholder="@(lang == "eng" ? "Firstname" : "Adınız") *">
-                                <div class="error activE">{{ errors.adSoyad }}</div>
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-md-6">
-                                <label>Telefon Numaranız *</label>
-                                <input class="form-control" type="text" v-model="serimForm.tel" id="phone" required>
-                                <div class="error activE">{{ errors.tel }}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Email Adresiniz *</label>
-                                <input class="form-control" type="text" v-model="serimForm.ePosta" id="email" required>
-                                <div class="error activE">{{ errors.ePosta }}</div>
-                            </div>
+                            <div class="error activE">{{ errors.meslekSecim }}</div>
                         </div>
                         <div class="col-md-6">
-                            <label>Doğum tarihi *</label>
-                            <input class="form-control" type="DATE" v-model="serimForm.ePosta" id="date" required>
+                            <div v-if="meslekSecim=='Diğer'">
+                                <label>Diğer Mesleği Belirtiniz</label>
+                                <input class="form-control" type="text" v-model="digerMeslek" v-text="meslekChange()" required>
+                                <div class="error activE">{{ errors.digerMeslek }}</div>
+                            </div>
+
+                        </div>
+                      
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label>Adınız ve Soyadınız *</label>
+                            <input class="form-control" type="text" name="adSoyad" id="adSoyad" v-model="formContact.adSoyad">
+                            <div class="error activE">{{ errors.adSoyad }}</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-6">
+                            <label>Telefon Numaranız *</label>
+                            <input class="form-control" type="text" onkeypress="return/^-?[0-9]*$/.test(this.value+event.key)" v-model="formContact.tel" maxlength="11" placeholder="05554443322" required>
+                            <div class="error activE">{{ errors.tel }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email Adresiniz *</label>
+                            <input class="form-control" type="text" v-model="formContact.ePosta" id="email" required>
                             <div class="error activE">{{ errors.ePosta }}</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label>Adres *</label>
-                            <textarea class="form-control" type="text" v-model="serimForm.adres" required></textarea>
+                            <textarea class="form-control" type="text" v-model="formContact.adres" required></textarea>
                             <div class="error activE">{{ errors.adres }}</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label> Eklemek istedikleriniz *</label>
-                            <textarea class="form-control" type="text" v-model="serimForm.aciklama" required></textarea>
+                            <textarea class="form-control" type="text" v-model="formContact.aciklama" required></textarea>
                             <div class="error activE">{{ errors.aciklama }}</div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="text-align: right;">
-                        <input type="submit" id="submit" value="Mesaj Gönder" v-on:click="sendMailFn()" class="btn btn-primary btn-lg" data-loading-text="Yükleniyor...">
+                    <div class="form-group">
+                        <div class="col-md-6" style="text-align: right;">
+                            <input type="submit" id="submit" value="Mesaj Gönder" style="float:left" v-on:click="formMailSend()" class="btn btn-primary btn-lg" data-loading-text="Yükleniyor...">
 
+                        </div>
                     </div>
                 </div>
-
             </div>
+            
 
         </div>
-    </div>
 
-}
 
 @section Scripts {
 
@@ -248,94 +113,208 @@ else
     <script src="~/js/vue.js" xmlns:v-on="http://www.w3.org/1999/xhtml"></script>
     <script src="~/js/axios.min.js"></script>
 
-    <!-- Theme Custom -->
-    <script src="~/theme/js/custom.js"></script>
-
-    <!-- Theme Initialization Files -->
-    <script src="~/theme/js/theme.init.js"></script>
-    <script src="~/victory/vendors/inputmask/jquery.inputmask.bundle.js"></script>
 
 
-<script type="text/javascript">
 
-    $(document).ready(function () {
+    <script type="text/javascript">
 
-        const validateAdSoyad = adSoyad => {
-            if (!adSoyad.length) {
-                return { valid: false, error: this.lang == 'eng' ? "This field is required" : "Bu alan zorunludur!" };
+        $(document).ready(function () {
+
+            const validateAdSoyad = adSoyad => {
+                if (!adSoyad.length) {
+                    return { valid: false, error: "Bu alan zorunludur!" };
+                }
+                return { valid: true, error: null };
             }
-            return { valid: true, error: null };
-        };
 
-        const validateTel = telNo => {
-            if (!telNo.length) {
-                return { valid: false, error: this.lang == 'eng' ? "This field is required" : "Bu alan zorunludur!" };
-            }
-            return { valid: true, error: null };
-        };
+            const validateTel = tel => {
+                if (!tel.length) {
+                    return { valid: false, error:  "Bu alan zorunludur!" };
+                }
+                return { valid: true, error: null };
+            };
 
-        const validateAdres = adres => {
-            if (!adres.length) {
-                return { valid: false, error: this.lang == 'eng' ? "This field is required" : "Bu alan zorunludur!" };
-            }
-            return { valid: true, error: null };
-      
-        };
+            const validateAdres = adres => {
+                if (!adres.length) {
+                    return { valid: false, error: "Bu alan zorunludur!" };
+                }
+                return { valid: true, error: null };
 
+            };
 
-        const validateEposta = ePosta => {
-            if (!ePosta.length) {
-                return { valid: false, error: this.lang == 'eng' ? "This field is required" : 'Bu alan zorunludur!' };
-            }
-            if (!ePosta.match(/^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/gi)) {
-                return { valid: false, error: this.lang == 'eng' ? "Please, enter a valid email." : "Lütfen geçerli eposta adresini giriniz" };
-            }
-            return { valid: true, error: null };
-        };
+            const validateEposta = ePosta => {
+                if (!ePosta.length) {
+                    return { valid: false, error:  'Bu alan zorunludur!' };
+                }
+                if (!ePosta.match(/^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/gi)) {
+                    return { valid: false, error: "Lütfen geçerli eposta adresini giriniz" };
+                }
+                return { valid: true, error: null };
+            };
 
+            const validateAciklama = aciklama => {
+                if (!aciklama.length) {
+                    return { valid: false, error: "Mesaj alanı boş olamaz!" };
+                }
+                return { valid: true, error: null };
+            };
+            const validateMeslekSecimi = meslek => {
+                if (!meslek.length) {
+                    return { valid: false, error: "Meslek Seçimi alanı boş olamaz!" };
+                }
+                return { valid: true, error: null };
+            };
 
-        const validateAciklama = aciklama => {
-            if (!aciklama.length) {
-                return { valid: false, error: this.lang == 'eng' ? "Description field cannot be empty" : "Mesaj alanı boş olamaz!" };
-            }
-            return { valid: true, error: null };
-        };
-        const validateBolgeTuru = meslekSecimi => {
-            if (!meslekSecimi.length) {
-                return { valid: false, error: this.lang == 'eng' ? "Zone Type field cannot be empty" : "Meslek Seçimi alanı boş olamaz!" };
-            }
-            return { valid: true, error: null };
-        };
+            var vm = new Vue({
+                el: "#app",
+                data: {
+                    lang: 'tr',
+                    meslekler: ["Memur", "Özel Sektör", "Serbest Çalışan", "Diğer"],
+                    //mesleklerEng: ["Officer", "Private Sector", "Freelancer", "Other"],
 
-        var vm = new Vue({
-            el: "app",
-            data: {
-                lang: 'tr',
-                meslekler: ["Memur", "Özel Sektör", "Serbest Çalışan", "Diğer"],
-                mesleklerEng: ["Officer", "Private Sector", "Freelancer", "Other"],
+                    formContact: {
+                        meslek: "",
+                        adSoyad: "",
+                        tel: "",
+                        ePosta: "",
+                        adres: "",
+                        aciklama: "",
+                        valid: true
 
-                formContact: {
-                    meslekSecimi: "",
-                    adSoyad: "",
-                    telNo: "",
-                    ePosta: "",
-                    adres: "",
-                    dogumTarihi: "",
-                    aciklama: "",
-                    valid: true
+                    },
+                    digerMeslek: "",
+                    meslekSecim: "",
+                    errors: {},
 
                 },
-                errors: {},
+
+                methods:
+                {
+
+                    formMailSend: function () {
+
+                        this.errors = {};
+                        let error = false;
+                        document.getElementById("submit").disabled = true;
+
+                        var verifyCallback = function (response) {
+                            alert(response);
+                        };
 
 
-            },
+                        const validAdSoyad = validateAdSoyad(this.formContact.adSoyad);
+                        this.errors.adSoyad = validAdSoyad.error;
+                        if (this.formContact.valid) {
+                            this.formContact.valid = validAdSoyad.valid;
+                        }
+
+                        //const validMeslekSec = validateMeslekSec(this.formContact.meslek);
+                        //this.errors.meslek = validMeslekSec.error;
+                        //if (this.formContact.valid) {
+                        //    this.formContact.valid = validMeslekSec.valid;
+                        //}
+
+                        const validAdres = validateAdres(this.formContact.adres);
+                        this.errors.adres = validAdres.error;
+                        if (this.formContact.valid) {
+                            this.formContact.valid = validAdres.valid;
+                        }
+
+                        const validTel = validateTel(this.formContact.tel);
+                        this.errors.tel = validTel.error;
+                        if (this.formContact.valid) {
+                            this.formContact.valid = validTel.valid;
+                        }
+
+                        const validEposta = validateEposta(this.formContact.ePosta);
+                        this.errors.ePosta = validEposta.error;
+                        if (this.formContact.valid) {
+                            this.formContact.valid = validEposta.valid;
+                        }
+                        const validAciklama = validateAciklama(this.formContact.aciklama);
+                        this.errors.aciklama = validAciklama.error;
+                        if (this.formContact.valid) {
+                            this.formContact.valid = validAciklama.valid;
+                        }
+
+                        
+                        if (this.formContact.valid == true) {
+                            let url = "/Form/FormContact";
+
+                            console.log("denemeeee", url);
+                            let data = JSON.stringify(vm.formContact);
+                            console.log("data", data);
+                            axios.post(url, data,
+                                { headers: { "content-type": "application/json" } })
+                                .then(function (response) {
+                                    if (response.data.isSuccess == true) {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: response.data.message,
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        });
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            position: 'top-end',
+                                            icon: 'warning',
+                                            title: response.data.message,
+                                            showConfirmButton: false,
+                                            timer: 2500
+                                        });
+                                        document.getElementById("submit").disabled = false;
+                                    }
+                                }).catch(err => {
+                                    console.log("ERROR : ::", err);
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Opps! Mesaj gönderilemedi. Lütfen Tekrar Deneyiniz.',
+                                        showConfirmButton: false,
+                                        timer: 2500
+                                    });
+                                    document.getElementById("submit").disabled = false;
+                                });
+
+                            //window.location("/");
+                        }
+                        else {
+                            console.log("mustafa3");
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Mesaj gönderilemedi.',
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                            document.getElementById("submit").disabled = false;
+                        }
 
 
 
-        });
 
-    })
-</script>
+                    },
+
+                    meslekChange: function () {
+
+                        if (this.meslekSecim == "Diğer") {
+
+                            this.formContact.meslek = this.digerMeslek;
+
+                        }
+                        else {
+                            this.formContact.meslek = this.meslekSecim;
+                        }
+                    }
+                },
+
+
+            });
+
+        })
+    </script>
 
 
 

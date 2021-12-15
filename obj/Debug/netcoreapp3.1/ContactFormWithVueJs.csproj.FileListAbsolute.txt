@@ -337,8 +337,6 @@ D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\ne
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\ContactFormWithVueJs.TagHelpers.input.cache
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\ContactFormWithVueJs.TagHelpers.output.cache
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\ContactFormWithVueJs.RazorCoreGenerate.cache
-D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -394,3 +392,4 @@ D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\bin\Debug\ne
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projeler\MERVE-PROJECT\ContactFormWithVueJs\ContactFormWithVueJs\obj\Debug\netcoreapp3.1\Razor\Views\Form\FormContact.cshtml.g.cs

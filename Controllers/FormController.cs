@@ -42,12 +42,12 @@ namespace ContactFormWithVueJs.Controllers
             if (form != null)
             {
                 var adSoyad = form["adSoyad"].ToString();
-                var telNo = form["telNo"].ToString();
+                var tel = form["tel"].ToString();
                 var ePosta = form["ePosta"].ToString();
-                var meslekSecimi = form["meslekSecimi"].ToString();
+                var meslek = form["meslek"].ToString();
                 var adres = form["adres"].ToString();
                 var aciklama = form["aciklama"].ToString();
-                var dogumTarihi = DateTime.Parse(form["dogumTarihi"].ToString());
+           
 
                 try
                 {
@@ -68,12 +68,12 @@ namespace ContactFormWithVueJs.Controllers
 
                     meailit.Body = "<h2 style=\"text-align:left\"><strong>İletişim Formu</strong></h2><br>" +
                     "<p><u><strong> Ad ve Soyad:</strong></u> " + adSoyad + "</p><br>" +
-                    "<p><u><strong> Telefon :</strong></u> " + telNo + "</p><br>" +
+                    "<p><u><strong> Telefon :</strong></u> " + tel + "</p><br>" +
                     "<p><u><strong> Mail Adresi:</strong></u> " + ePosta + "</p><br>" +
                     "<p><u><strong> Adres :</strong></u> &nbsp; " + adres + "</p><br>" +
-                    "<p><u><strong> Meslek Seçimi :</strong></u> &nbsp; " + meslekSecimi + "</p><br>" +
-                    "<p><u><strong> Açıklama :</strong></u> &nbsp; " + aciklama + "</p>"+
-                    "<p><u><strong> Doğum Tarihi :</strong></u> &nbsp; " + dogumTarihi + "</p>";
+                    "<p><u><strong>Meslek Seç:</strong></u> &nbsp; " + meslek + "</p><br>" +
+                    "<p><u><strong> Açıklama :</strong></u> &nbsp; " + aciklama + "</p>";
+                  
 
                     meailit.IsBodyHtml = true;
                     meailit.BodyEncoding = System.Text.Encoding.UTF8;
@@ -87,7 +87,7 @@ namespace ContactFormWithVueJs.Controllers
                     client.EnableSsl = true;
 
                     client.SendMailAsync(meailit);
-                    return Ok(new { isSuccess = true, message = "Başvurunuz başarıyla gönderildi." });
+                    return Ok(new { isSuccess = true, message = "Başvurunuz başarıyla gönderildi.",data=form });
 
                 }
                 catch (Exception ex)
@@ -97,8 +97,6 @@ namespace ContactFormWithVueJs.Controllers
 
                 }
 
-
-                return View();
             }
             else
             {
